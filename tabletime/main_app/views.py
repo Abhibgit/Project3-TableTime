@@ -7,7 +7,7 @@ def home(request):
   return HttpResponse('<h1>Welcome to Table Time</h1>')
 
 def restaurant(request):
-    return HttpResponse('<h1>Restaurant Near You</h1>')
+    return render(request,'restaurant.html')
 
 def userprofile(request):
     return HttpResponse('<h1>You the man</h1>')
@@ -24,5 +24,5 @@ def signup(request):
 def login(request):
     return HttpResponse('<h1>So your back huh</h1>')
 
-def savedrestaurants(request):
-    return HttpResponse('<h1>Wanna eat again okay...</h1>')    
+def savedrestaurants_index(request):
+    return render(request, 'savedrestaurants/index.html', {'savedreturants':savedrestaurants})    
