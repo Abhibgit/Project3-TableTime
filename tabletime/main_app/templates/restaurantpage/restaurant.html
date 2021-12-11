@@ -1,0 +1,19 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>Restaurants List</h1>
+
+{% for restaurant in restaurant %}
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">{{ restaurant.name }}</span>
+    <p>City: {{ restaurant.city }}</p>
+    <p>Cuisine: {{ restaurant.cuisine }}</p>
+    <p>Cost : {{ restaurant.cost }}</p>
+    {% if restaurant.cost > 2 %}
+    <p>Cost: Expensive</p>
+    {% else %}
+    <p>Cost: {{ restaurant.cost }}</p>
+    {% endif %}
+  </div>
+</div>
+{% endfor %} {% endblock %}
