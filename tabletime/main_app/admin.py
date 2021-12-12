@@ -3,5 +3,5 @@ from .models import User
 from .models import Restaurant
 
 # Register your models here.
-admin.site.register(User)
+# admin.site.register(User)
 admin.site.register(Restaurant)
