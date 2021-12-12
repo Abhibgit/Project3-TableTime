@@ -1,4 +1,3 @@
-
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
@@ -31,7 +30,7 @@ def account_settings(request):
 def savedrestaurants_index(request):
     savedrestaurants=[]
     return render(request, 'savedrestaurants/index.html/', {'savedrestaurants':savedrestaurants})    
-    
+
 def signup(request):
   error_message = ''
   if request.method == 'POST':
@@ -49,4 +48,3 @@ def signup(request):
 def restaurant_detail(request, restaurant_id):
     restaurant = restaurant.objects.get(id=restaurant_id)
     return render(request, 'restaurantpage/restaurant_detail.html', {'restaurant':restaurant})
-
