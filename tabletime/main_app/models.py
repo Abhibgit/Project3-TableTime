@@ -1,6 +1,15 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
+
+#Occasions for the reservation feature
+OCCASIONS = (
+    ('A', 'Anniversary'),
+    ('B', 'Birthday'),
+    ('C', 'Celebration'),
+    ('D', 'Date Night'),
+    ('M', 'Business Meeting')
+)
 
 class Restaurant(models.Model):
     name = models.CharField(max_length = 100)
@@ -14,23 +23,14 @@ class Restaurant(models.Model):
     #     self.cuisine = cuisine 
     #     self.cost = cost 
 
-class User(models.Model):
-    firstname = models.CharField(max_length = 100)
-    lastname = models.CharField(max_length = 100)
-    email = models.CharField(max_length = 100)
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone = models.IntegerField()
     address = models.CharField(max_length = 100)
     picture = models.TextField(max_length = 100)
     notifications = models.BooleanField()
     def __str__(self):
-        return self.firstname
-    #      self.firstname = firstname
-    #      self.lastname = lastname
-    #      self.email = email
-    #      self.phone = phone
-    #      self.address = address
-    #      self.picture = picture
-    #      self.notifications = notifications
+        return self.phone, self.address, self.picture, self.notifications
 
 
 class Reviews(models.Model):
@@ -41,7 +41,12 @@ class Reviews(models.Model):
     #   self. comment = comment 
     #   self.star_rating = star_rating
      
-     
-
-
-     
+# join table for the reservations, choices for occcasions
+class Reservations(models.Model):
+    date = models.DateField()
+    time = models.TimeField()
+    people = models.IntegerField()
+    occasion = models.CharField(max_length=1, choices=OCCASIONS, default=OCCASIONS[2][0])
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+ 

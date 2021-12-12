@@ -7,8 +7,7 @@ urlpatterns = [
   path('userprofile/', views.userprofile_index, name='userprofile'),
   path('restaurant_reservation/', views.restaurant_reservation, name='restaurant_reservation'),
   path('account_settings/', views.account_settings, name='account_settings'),
-  path('signup/', views.signup, name='signup'),
-  path('login/', views.login, name='login'),
+  path('accounts/signup/', views.signup, name='signup'),
+  path('accounts/login/', views.login, name='login'),
   path('savedrestaurants/', views.savedrestaurants_index, name='index'),
-
 ]
