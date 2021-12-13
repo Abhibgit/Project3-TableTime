@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from .models import Restaurant
+
 
 urlpatterns = [
   path('', views.home, name='home'),
@@ -10,5 +12,5 @@ urlpatterns = [
   path('accounts/signup/', views.signup, name='signup'),
   path('accounts/login/', views.login, name='login'),
   path('savedrestaurants/', views.savedrestaurants_index, name='index'),
-  path('restaurants/<int:restaurant_id>/', views.restaurant_detail, name='detail'),
+  path('restaurant/<int:restaurant_id>/', views.restaurant_detail, name='detail'),
 ]
