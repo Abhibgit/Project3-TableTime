@@ -23,14 +23,13 @@ class Restaurant(models.Model):
     #     self.cuisine = cuisine 
     #     self.cost = cost 
 
+# Connects the User model provided by Django and the additional information needed for the Profile.
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    phone = models.IntegerField()
+    phone = models.CharField(max_length = 100)
     address = models.CharField(max_length = 100)
-    picture = models.TextField(max_length = 100)
-    notifications = models.BooleanField()
     def __str__(self):
-        return self.phone, self.address, self.picture, self.notifications
+        return f"{self.user.username}"
 
 
 class Reviews(models.Model):
