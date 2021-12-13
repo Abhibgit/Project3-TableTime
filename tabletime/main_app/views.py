@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.contrib.auth.models import User
-from .models import User
+from .forms import ProfileForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from .models import Restaurant
@@ -34,14 +34,14 @@ def savedrestaurants_index(request):
 def signup(request):
   error_message = ''
   if request.method == 'POST':
-    form = UserCreationForm(request.POST)
+    form = ProfileForm(request.POST)
     if form.is_valid():
       user = form.save()
       login(request, user)
       return redirect('index')
     else:
       error_message = 'Invalid sign up - try again'
-  form = UserCreationForm()
+  form = ProfileForm()
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
 
