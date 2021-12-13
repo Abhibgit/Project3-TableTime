@@ -3,6 +3,8 @@ from .models import Profile, User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 
+# ProfileForm modifies the UserCreationForm to gather additional data
+# that will be inserted into the Profile and User Models
 class ProfileForm(UserCreationForm):
     first_name = forms.CharField(max_length = 100)
     last_name = forms.CharField(max_length = 100)

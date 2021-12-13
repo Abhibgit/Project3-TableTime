@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from .forms import ProfileForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
-from .models import Restaurant
+from .models import Restaurant, Profile
 
 # Note that parens are optional if not inheriting from another class
  
@@ -18,18 +18,20 @@ def restaurant_index(request):
   restaurants = Restaurant.objects.all() 
   return render(request,'restaurantpage/restaurant.html', {'restaurant': restaurants})
 
-def userprofile_index(request):
-    return render(request,'userprofile/index.html', {'userprofile':'userprofile'})
+def user_profile_index(request):
+  print("profile", request.user)
+  user_profile = Profile.objects.get(user=request.user)
+  return render(request,'userprofile/index.html', {'user_profile': user_profile})
 
 def restaurant_reservation(request):
-    return render(request,'reservation.html')
+  return render(request,'reservation.html')
 
 def account_settings(request):
-   return render(request,'accountsettings/account_settings.html')
+  return render(request,'accountsettings/account_settings.html')
 
-def savedrestaurants_index(request):
-    savedrestaurants=[]
-    return render(request, 'savedrestaurants/index.html/', {'savedrestaurants':savedrestaurants})    
+def saved_restaurants_index(request):
+  savedrestaurants=[]
+  return render(request, 'savedrestaurants/index.html/', {'savedrestaurants':savedrestaurants})    
 
 def signup(request):
   error_message = ''
