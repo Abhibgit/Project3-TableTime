@@ -15,8 +15,8 @@ def home(request):
   return render(request,'homepage.html')
 
 def restaurant_index(request):
-    restaurant = Restaurant.objects.all() 
-    return render(request,'restaurantpage/restaurant.html', {'restaurant': restaurant})
+  restaurants = Restaurant.objects.all() 
+  return render(request,'restaurantpage/restaurant.html', {'restaurant': restaurants})
 
 def userprofile_index(request):
     return render(request,'userprofile/index.html', {'userprofile':'userprofile'})
@@ -46,5 +46,5 @@ def signup(request):
   return render(request, 'registration/signup.html', context)
 
 def restaurant_detail(request, restaurant_id):
-    restaurant = restaurant.objects.get(id=restaurant_id)
-    return render(request, 'restaurantpage/restaurant_detail.html', {'restaurant':restaurant})
+  restaurant = Restaurant.objects.get(id=restaurant_id)
+  return render(request, 'restaurantpage/restaurant_detail.html', {'restaurant':restaurant})
