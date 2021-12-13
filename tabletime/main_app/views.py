@@ -6,6 +6,8 @@ from .forms import ProfileForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from .models import Restaurant, Profile
+from django import forms
+from .models import Reviews
 
 # Note that parens are optional if not inheriting from another class
  
@@ -50,3 +52,12 @@ def signup(request):
 def restaurant_detail(request, restaurant_id):
   restaurant = Restaurant.objects.get(id=restaurant_id)
   return render(request, 'restaurantpage/restaurant_detail.html', {'restaurant':restaurant})
+
+class ReviewsCreate(CreateView):
+  model = Reviews
+  fields = '__all__'
+  success_url = '/savedrestaurants/'
+  
+# class ReviewsDelete(DeleteView):
+#   model = Reviews
+#   fields = '__all__'

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse 
 # Create your models here.
 
 #Occasions for the reservation feature
@@ -33,8 +34,12 @@ class Profile(models.Model):
 
 
 class Reviews(models.Model):
-    comment = models.CharField(max_length = 100)
-    star_rating = models.TextField(max_length = 100)
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+    comment = models.TextField(max_length = 100)
+    star_rating = models.IntegerField(max_length = 100)
+
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'restaurant_id' : restaurant.id})
 
     # def __str__(self):
     #   self. comment = comment 

@@ -12,7 +12,22 @@
     {% else %}
     <p>Cost: Expensive</p>
     {% endif %}
+    <li>
+      <a href="{% url 'review_create' %}">Add a review</a>
+    </li>
   </div>
-</div>
 
+  {% if restaurant.reviews.count %} {% for review in restaurant.reviews.all %}
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">
+        <p>Comment: {{ review.comment }}</p>
+        <p>Star Rating: {{ review.starrating }}</p>
+    </div>
+  </div>
+  {% endfor %} {% else %}
+  <h5>No Reviews</h5>
+  {% endif %}
+  
+</div>
 {% endblock %}
