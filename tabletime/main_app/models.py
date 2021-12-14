@@ -18,11 +18,6 @@ class Restaurant(models.Model):
     cuisine = models.TextField(max_length = 100)
     cost = models.IntegerField()
 
-    # def __str__(self):
-    #     self.name = name
-    #     self.city = city
-    #     self.cuisine = cuisine 
-    #     self.cost = cost 
 
 # Connects the User model provided by Django and the additional information needed for the Profile.
 class Profile(models.Model):
@@ -36,14 +31,12 @@ class Profile(models.Model):
 class Reviews(models.Model):
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     comment = models.TextField(max_length = 100)
-    star_rating = models.IntegerField(max_length = 100)
+    star_rating = models.IntegerField()
 
     def get_absolute_url(self):
         return reverse('detail', kwargs={'restaurant_id' : restaurant.id})
-
-    # def __str__(self):
-    #   self. comment = comment 
-    #   self.star_rating = star_rating
+    
+    
      
 # join table for the reservations, choices for occcasions
 class Reservations(models.Model):

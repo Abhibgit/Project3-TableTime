@@ -13,5 +13,5 @@ urlpatterns = [
   path('accounts/signup/', views.signup, name='signup'),
   path('savedrestaurants/', views.savedrestaurants_index, name='savedrestaurants'),
   path('restaurant/<int:restaurant_id>/', views.restaurant_detail, name='detail'),
-  path('reviews/create/', views.ReviewsCreate.as_view(), name='review_create'),
+  path('restaurant/<int:restaurant_id>/add_review/', views.add_review, name='add_review'),
 ]
