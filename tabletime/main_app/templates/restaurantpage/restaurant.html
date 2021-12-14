@@ -14,6 +14,7 @@
       <p>Cost: Expensive</p>
       {% else %}
       <p>Cost: {{ restaurant.cost }}</p>
+      <a href="{% url 'detail' restaurant.id %}"></a>
       {% endif %}
     </div>
   </a>
