@@ -17,6 +17,7 @@ class Restaurant(models.Model):
     city = models.CharField(max_length = 100)
     cuisine = models.TextField(max_length = 100)
     cost = models.IntegerField()
+    # reservations = models.ManytoManyField(Reservations)
 
 
 # Connects the User model provided by Django and the additional information needed for the Profile.
@@ -24,6 +25,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone = models.CharField(max_length = 100)
     address = models.CharField(max_length = 100)
+    # saved_restaurants = models.ManytoManyField(Saved_restaurants)
     def __str__(self):
         return f"{self.user.username}"
 
@@ -46,4 +48,9 @@ class Reservations(models.Model):
     occasion = models.CharField(max_length=1, choices=OCCASIONS, default=OCCASIONS[2][0])
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+def __str__(self):
+    return f"{self.get_restaurant_name()} is booked on {self.date} at {self.time}"
+
+# class Saved_restaurants(models.Model):
+#     name = 
  

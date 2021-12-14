@@ -9,5 +9,23 @@
 <p>Phone: {{ user_profile.phone }}</p>
 <p>Location: {{ user_profile.address }}</p>
 
+<h5>Your Reservations<h5>
+{{ user.reservation_set.count }}
+{% if reservations.count %} {% for reservation in reservations %}
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">
+      <p>Restaurant: {{reservation.restaurant.name}}</p>
+      <p>Date: {{ reservation.date }}</p>
+      <p>Time: {{ reservation.time }}</p>
+      <p>People: {{ reservation.people }}</p>
+      <p>Occasion: {{ reservation.occasion }}</p>
+
+  </div>
+</div>
+{% endfor %} {% else %}
+<h5>No Reservations</h5>
+{% endif %}
+
 <li><a href="{% url 'logout' %}">Log Out</a></li>
 {% endblock %}
