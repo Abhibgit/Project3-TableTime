@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse 
 # Create your models here.
 
 #Occasions for the reservation feature
@@ -17,11 +18,6 @@ class Restaurant(models.Model):
     cuisine = models.TextField(max_length = 100)
     cost = models.IntegerField()
 
-    # def __str__(self):
-    #     self.name = name
-    #     self.city = city
-    #     self.cuisine = cuisine 
-    #     self.cost = cost 
 
 # Connects the User model provided by Django and the additional information needed for the Profile.
 class Profile(models.Model):
@@ -33,12 +29,14 @@ class Profile(models.Model):
 
 
 class Reviews(models.Model):
-    comment = models.CharField(max_length = 100)
-    star_rating = models.TextField(max_length = 100)
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+    comment = models.TextField(max_length = 100)
+    star_rating = models.IntegerField()
 
-    # def __str__(self):
-    #   self. comment = comment 
-    #   self.star_rating = star_rating
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'restaurant_id' : restaurant.id})
+    
+    
      
 # join table for the reservations, choices for occcasions
 class Reservations(models.Model):

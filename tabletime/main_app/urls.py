@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 from .models import Restaurant
+from .models import Reviews
 
 
 urlpatterns = [
@@ -12,4 +13,5 @@ urlpatterns = [
   path('accounts/signup/', views.signup, name='signup'),
   path('savedrestaurants/', views.saved_restaurants_index, name='saved_restaurants'),
   path('restaurant/<int:restaurant_id>/', views.restaurant_detail, name='detail'),
+  path('restaurant/<int:restaurant_id>/add_review/', views.add_review, name='add_review'),
 ]

@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Profile, User
+from .models import Profile, User, Reviews
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 
@@ -25,3 +25,8 @@ class ProfileForm(UserCreationForm):
             profile = Profile(phone = self.cleaned_data["phone"], address = self.cleaned_data["address"], user = user)
             profile.save()
         return user
+
+class ReviewForm(ModelForm):
+  class Meta:
+    model = Reviews
+    fields = ['comment', 'star_rating']
