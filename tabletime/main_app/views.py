@@ -9,7 +9,7 @@ from .models import Restaurant, Profile, Reservations
 from django import forms
 from .forms import ReviewForm
 from .models import Reviews
-from .forms import ReservationForm, ReservationDelForm
+from .forms import ReservationForm
 
 # Note that parens are optional if not inheriting from another class
  
@@ -74,39 +74,22 @@ def add_reservations(request, restaurant_id, profile_id):
     new_reservations.user_id = profile_id 
     new_reservations.restaurant_id = restaurant_id
     new_reservations.save()
-    # user_profile = Profile.objects.get(user=request.user)
-    # reservations = Reservations.objects.filter(user_id= user_profile.id)
     return redirect('user_profile')
   else:
     return render(request, 'reservation.html', {'restaurant_id': restaurant_id, 'profile_id': profile_id, 'reservation_form' : form})
-
-# class update_reservations(UpdateView):
-#    model = Reservations
-#    fields = '__all__'
-#     # return redirect('')
-
-
-  #  reservation_to_delete = get_object_or_404(Restaurant, id=reservation_id)
-  #   # create a ModelForm instance using the data in request.POST
-  # form = ReservationDelForm(request.POST)
-  # if request.method == 'POST':
-  #       form = ReservationDelForm(request.POST, instance=reservation_to_delete)
-
-  #       if form.is_valid(): # checks CSRF
-  #           new_to_delete.delete()
-  #           return HttpResponseRedirect("/") # wherever to go after deleting
-
-  #   else:
-  #       form = DeleteNewForm(instance=new_to_delete)
-
-  #   template_vars = {'form': form}
     
   
-  
-def update_reservations(self, request, reservation_id):
-  Reservations.objects.get(id=reservation_id).update()
-
-  return redirect('user_profile')
+def update_reservations(request, reservation_id):
+  reservation = Reservations.objects.get(id=reservation_id)
+  if request.method == 'POST':
+    form = ReservationForm(request.POST, instance=reservation)
+    print("form: ", form)
+    if form.is_valid():
+      form.save()
+      return redirect('user_profile')
+  else:
+    form = ReservationForm(instance=reservation)
+    return render(request, 'reservation/reservation_update.html', {'reservation_form': form, 'reservation_id': reservation_id})
 
 def delete_reservations(request, reservation_id):
   Reservations.objects.get(id=reservation_id).delete()

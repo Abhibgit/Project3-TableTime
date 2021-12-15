@@ -42,11 +42,6 @@ class ReservationForm(ModelForm):
      model = Reservations 
      fields = ['date', 'time', 'people', 'occasion']
 
-class ReservationDelForm(ModelForm):
-    date = forms.DateField()
-    time = forms.TimeField()
-    people = forms.IntegerField()
-    occasion = forms.CharField()
-    class Meta:
-     model = Reservations 
-     fields = ['date', 'time', 'people', 'occasion']
+
+
+
