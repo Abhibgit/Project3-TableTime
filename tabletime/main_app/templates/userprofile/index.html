@@ -20,6 +20,8 @@
       <p>Time: {{ reservation.time }}</p>
       <p>People: {{ reservation.people }}</p>
       <p>Occasion: {{ reservation.occasion }}</p>
+      <li><a href="{% url 'delete_reservations' reservation.id %}">Delete Reservation</a></li>
+      <li><a href="{% url 'update_reservations' reservation.id %}">Update Reservation</a></li>
 
   </div>
 </div>

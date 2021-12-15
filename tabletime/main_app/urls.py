@@ -15,5 +15,6 @@ urlpatterns = [
   path('restaurant/<int:restaurant_id>/', views.restaurant_detail, name='detail'),
   path('restaurant/<int:restaurant_id>/add_review/', views.add_review, name='add_review'),
   path('restaurant/<int:restaurant_id>/add_reservations/<int:profile_id>/', views.add_reservations, name='add_reservations'),
-  path('restaurant/<int:restaurant_id>/delete_reservations/<int:profile_id>/', views.delete_reservations, name='delete_reservations'),
+  path('reservations/<int:reservation_id>/delete_reservations/', views.delete_reservations, name='delete_reservations'),
+  path('reservations/<int:reservation_id>/update_reservations/', views.update_reservations, name='update_reservations'),
 ]

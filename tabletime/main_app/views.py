@@ -9,7 +9,7 @@ from .models import Restaurant, Profile, Reservations
 from django import forms
 from .forms import ReviewForm
 from .models import Reviews
-from .forms import ReservationForm
+from .forms import ReservationForm, ReservationDelForm
 
 # Note that parens are optional if not inheriting from another class
  
@@ -86,13 +86,40 @@ def add_reservations(request, restaurant_id, profile_id):
   else:
     return render(request, 'reservation.html', {'restaurant_id': restaurant_id, 'profile_id': profile_id, 'reservation_form' : form})
 
-def delete_reservations(request, restaurant_id, profile_id):
-    # create a ModelForm instance using the data in request.POST
-  form = ReservationForm(request.POST)
-  if form.is_valid():
-    new_reservations = form.save(commit=False)
-    new_reservations.profile_id = profile_id
-    new_reservations.restaurant_id = restaurant_id
-    new_reservations.save()
-  return render(request, 'reservation.html', {'restaurant_id': restaurant_id, 'profile_id': profile_id, 'reservation_form' : form})
+# class delete_reservations(DeleteView):
+#   model = Reservations
+#   fields = '__all__'
+#   success_url = '/user_profile/'
+#   # return redirect('')
+
+# class update_reservations(UpdateView):
+#    model = Reservations
+#    fields = '__all__'
+#     # return redirect('')
+
+
+  #  reservation_to_delete = get_object_or_404(Restaurant, id=reservation_id)
+  #   # create a ModelForm instance using the data in request.POST
+  # form = ReservationDelForm(request.POST)
+  # if request.method == 'POST':
+  #       form = ReservationDelForm(request.POST, instance=reservation_to_delete)
+
+  #       if form.is_valid(): # checks CSRF
+  #           new_to_delete.delete()
+  #           return HttpResponseRedirect("/") # wherever to go after deleting
+
+  #   else:
+  #       form = DeleteNewForm(instance=new_to_delete)
+
+  #   template_vars = {'form': form}
+    
   
+  
+def update_reservations(self, request, reservation_id):
+  Reservations.objects.get(id=reservation_id).update()
+  return redirect('user_profile')
+
+def delete_reservations(request, reservation_id):
+  Reservations.objects.get(id=reservation_id).delete()
+
+  return redirect('user_profile')
