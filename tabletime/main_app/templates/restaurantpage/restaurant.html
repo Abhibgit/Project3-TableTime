@@ -14,7 +14,9 @@
       <p>Cost: Expensive</p>
       {% else %}
       <p>Cost: {{ restaurant.cost }}</p>
-      <a href="{% url 'add_reservations' restaurant_id  profile_id %}"></a>
+      <a href="{% url 'add_reservations' restaurant.id  profile_id %}"
+        >Add Reservation</a
+      >
       {% endif %}
     </div>
   </a>
