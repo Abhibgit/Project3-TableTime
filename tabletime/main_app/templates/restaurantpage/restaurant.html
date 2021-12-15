@@ -2,19 +2,17 @@
 
 <h1>Restaurants List</h1>
 
-{% for restaurant in restaurant %}
+{% for restaurant in business_data %}
 <div class="card">
   <a href="{% url 'detail' restaurant.id %}">
     <div class="card-content">
       <span class="card-title">{{ restaurant.name }}</span>
-      <p>City: {{ restaurant.city }}</p>
-      <p>Cuisine: {{ restaurant.cuisine }}</p>
-      <p>Cost : {{ restaurant.cost }}</p>
-      {% if restaurant.cost > 2 %}
-      <p>Cost: Expensive</p>
-      {% else %}
-      <p>Cost: {{ restaurant.cost }}</p>
-      {% endif %}
+      <img src="{{ restaurant.image_url }}" />
+      <p>City: {{ restaurant.location.city }}</p>
+      <p>Cuisine: {{ restaurant.categories }}</p>
+      <p>Cost : {{ restaurant.price }}</p>
+      <p>Rating : {{ restaurant.rating }}</p>
+      <p>Address : {{ restaurant.location.address1 }}</p>
     </div>
   </a>
 </div>

@@ -9,20 +9,22 @@ from .models import Restaurant, Profile
 from django import forms
 from .forms import ReviewForm
 from .models import Reviews
+import requests
+import os
+#from geocodio import GeocodioClient
+ 
+YELP_KEY = os.environ['YELP_KEY']
+#Client = GeocodioClient('GEOCODIO_API')
+
 
 # Note that parens are optional if not inheriting from another class
- 
+#PARAMETERS = {'term':'coffee', 'limit': 50, 'radius': 10000, 'location':'San Diego'}
 # Create your views here.
 
 def home(request):
   return render(request,'homepage.html')
 
-def restaurant_index(request):
-  restaurants = Restaurant.objects.all() 
-  return render(request,'restaurantpage/restaurant.html', {'restaurant': restaurants})
-
 def user_profile_index(request):
-  print("profile", request.user)
   user_profile = Profile.objects.get(user=request.user)
   return render(request,'userprofile/index.html', {'user_profile': user_profile})
 
@@ -43,7 +45,7 @@ def signup(request):
     if form.is_valid():
       user = form.save()
       login(request, user)
-      return redirect('index')
+      return redirect('/')
     else:
       error_message = 'Invalid sign up - try again'
   form = ProfileForm()
@@ -63,3 +65,8 @@ def add_review(request, restaurant_id):
     new_review.restaurant_id = restaurant_id
     new_review.save()
   return redirect('detail', restaurant_id=restaurant_id)
+
+def search_restaurant(request):
+  r=requests.get("https://api.yelp.com/v3/businesses/search", params = {'location': request.POST['location'], 'categories': request.POST['categories']}, headers={'Authorization':f'Bearer {YELP_KEY}'})
+  business_data = r.json()
+  return render(request, "restaurantpage/restaurant.html", {'business_data': business_data['businesses']})
