@@ -3,7 +3,7 @@
 <h1>Reservation Details</h1>
 <div>
   <form
-    action="{% url 'add_reservations' restaurant_id  profile_id %}"
+    action="{% url 'add_reservations' restaurant_name restaurant_id profile_id %}"
     method="post"
   >
     <!-- Django requires the following for security purposes -->

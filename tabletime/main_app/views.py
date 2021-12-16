@@ -1,14 +1,8 @@
 from django.shortcuts import render, redirect
-from django.views.generic import ListView, DetailView
-from django.views.generic.edit import CreateView, DeleteView, UpdateView
-from django.contrib.auth.models import User
 from .forms import ProfileForm
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
-from .models import Restaurant, Profile, Reservations
-from django import forms
+from .models import Profile, Reservations, Reviews
 from .forms import ReviewForm
-from .models import Reviews
 from .forms import ReservationForm
 import requests
 import os
@@ -22,15 +16,9 @@ client = GeocodioClient(os.environ['GEOCODIO_API'])
 def home(request):
   return render(request,'homepage.html')
 
-def restaurant_index(request):
-  restaurants = Restaurant.objects.all() 
-  user_profile = Profile.objects.get(user=request.user)
-  return render(request,'restaurantpage/restaurant.html', {'restaurant': restaurants, 'profile_id': user_profile.id})
-
 def user_profile_index(request):
-  print("profile", request.user)
   user_profile = Profile.objects.get(user=request.user)
-  reservations = Reservations.objects.filter(user_id= user_profile.id)
+  reservations = Reservations.objects.filter(user_id=user_profile.id)
   return render(request,'userprofile/index.html', {'user_profile': user_profile, 'reservations': reservations})
 
 def account_settings(request):
@@ -47,43 +35,45 @@ def signup(request):
     if form.is_valid():
       user = form.save()
       login(request, user)
-      return redirect('index')
+      return redirect('user_profile')
     else:
       error_message = 'Invalid sign up - try again'
   form = ProfileForm()
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
 
-def restaurant_detail(request, restaurant_id):
+def restaurant_detail(request, restaurant_name, restaurant_id):
+  print(restaurant_id)
+  print(restaurant_name)
   r=requests.get(f"https://api.yelp.com/v3/businesses/{restaurant_id}", headers={'Authorization':f'Bearer {YELP_KEY}'})
   restaurant_info = r.json()
   user_profile = Profile.objects.get(user=request.user)
   reviews_form = ReviewForm()
-  return render(request, 'restaurantpage/restaurant_detail.html', {'restaurant_info': restaurant_info, 'reviews_form': reviews_form, 'profile_id': user_profile.id})
+  review_data = Reviews.objects.filter(restaurant=restaurant_id)
+  return render(request, 'restaurantpage/restaurant_detail.html', {'restaurant_info': restaurant_info, 'reviews_form': reviews_form, 'profile_id': user_profile.id, 'review_data': review_data, 'restaurant_name': restaurant_name})
 
 def add_review(request, restaurant_id):
     # create a ModelForm instance using the data in request.POST
   form = ReviewForm(request.POST)
   if form.is_valid():
     new_review = form.save(commit=False)
-    new_review.restaurant_id = restaurant_id
+    new_review.restaurant = restaurant_id
     new_review.save()
   return redirect('detail', restaurant_id=restaurant_id)
 
-def add_reservations(request, restaurant_id, profile_id):
+def add_reservations(request, restaurant_name, restaurant_id, profile_id):
     # create a ModelForm instance using the data in request.POST
   form = ReservationForm(request.POST)
   if form.is_valid():
-   
+    print(form)
     new_reservations = form.save(commit=False)
     new_reservations.user_id = profile_id 
     new_reservations.restaurant_id = restaurant_id
+    new_reservations.restaurant_name = restaurant_name
     new_reservations.save()
-    user_profile = Profile.objects.get(user=request.user)
-    reservations = Reservations.objects.filter(user_id= user_profile.id)
-    return redirect('user_profile', {'user_profile': user_profile, 'reservations': reservations})
+    return redirect('user_profile')
   else:
-    return render(request, 'reservation.html', {'restaurant_id': restaurant_id, 'profile_id': profile_id, 'reservation_form' : form})
+    return render(request, 'reservation.html', {'restaurant_id': restaurant_id, 'profile_id': profile_id, 'reservation_form' : form, 'restaurant_name': restaurant_name})
     
 def update_reservations(request, reservation_id):
   reservation = Reservations.objects.get(id=reservation_id)
@@ -109,5 +99,6 @@ def search_restaurant(request):
   lng = geo_location['results'][0]['location']['lng']
   r=requests.get("https://api.yelp.com/v3/businesses/search", params = {'latitude': lat, 'longitude': lng, 'term': request.POST['term']}, headers={'Authorization':f'Bearer {YELP_KEY}'})
   business_data = r.json()
-  return render(request, "restaurantpage/restaurant.html", {'business_data': business_data['businesses']})
+  user_profile = Profile.objects.get(user=request.user)
+  return render(request, "restaurantpage/restaurant.html", {'business_data': business_data['businesses'], 'profile_id': user_profile.id})
 

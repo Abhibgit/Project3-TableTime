@@ -2,9 +2,9 @@
 
 <h1>Restaurants List</h1>
 
-{% for restaurant in restaurant %}
+{% for restaurant in business_data %}
 <div class="card">
-  <a href="{% url 'detail' restaurant.id %}">
+  <a href="{% url 'detail' restaurant.name restaurant.id %}">
     <div class="card-content">
       <span class="card-title">{{ restaurant.name }}</span>
       <img src="{{ restaurant.image_url }}" />
@@ -12,10 +12,6 @@
       <p>Cost : {{ restaurant.price }}</p>
       <p>Rating : {{ restaurant.rating }}</p>
       <p>Address : {{ restaurant.location.display_address|join:", "}}</p>
-      <a href="{% url 'add_reservations' restaurant.id  profile_id %}"
-        >Add Reservation</a
-      >
-      {% endif %}
     </div>
   </a>
 </div>

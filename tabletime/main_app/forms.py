@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Profile, User, Reviews, Reservations, OCCASIONS
+from .models import Profile, User, Reviews, Reservations
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 
@@ -33,9 +33,8 @@ class ReviewForm(ModelForm):
 
 
 class ReservationForm(ModelForm):
-    
     date = forms.DateField()
-    time = forms.TimeField()
+    time = forms.IntegerField()
     people = forms.IntegerField()
     occasion = forms.CharField()
     class Meta:

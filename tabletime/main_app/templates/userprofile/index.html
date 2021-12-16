@@ -15,14 +15,13 @@
 <div class="card">
   <div class="card-content">
     <span class="card-title">
-      <p>Restaurant: {{reservation.restaurant.name}}</p>
+      <p>Restaurant: {{reservation.restaurant_name}}</p>
       <p>Date: {{ reservation.date }}</p>
       <p>Time: {{ reservation.time }}</p>
       <p>People: {{ reservation.people }}</p>
       <p>Occasion: {{ reservation.occasion }}</p>
       <li><a href="{% url 'delete_reservations' reservation.id %}">Delete Reservation</a></li>
       <li><a href="{% url 'update_reservations' reservation.id %}">Update Reservation</a></li>
-
   </div>
 </div>
 {% endfor %} {% else %}
