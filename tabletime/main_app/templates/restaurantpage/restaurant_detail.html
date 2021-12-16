@@ -4,16 +4,26 @@
 
 <div class="card">
   <div class="card-content">
-    <span class="card-title">{{ restaurant.name }}</span>
-    <p>City: {{ restaurant.city }}</p>
-    <p>Cuisine: {{ restaurant.cuisine }}</p>
-    {% if restaurant.cost > 2 %}
-    <p>Cost: {{ restaurant.cost }}</p>
-    {% else %}
-    <p>Cost: Expensive</p>
-    {% endif %}
+    <img src="{{ restaurant_info.image_url }}">
+    <span class="card-title">{{ restaurant_info.name }}</span>
+
+    <p>Cuisine: {{ restaurant_info.categories.0.title}}</p>
+    <p>Price: {{ restaurant_info.price }}</p>
+    <p>Rating: {{ restaurant_info.rating }}</p>
+    <p>Phone: {{ restaurant_info.display_phone }}</p>
+    <p>Hours: 
+       Mon {{ restaurant_info.hours.0.open.0.start }} - {{ restaurant_info.hours.0.open.0.end }}</p>
+       Tue {{ restaurant_info.hours.0.open.1.start }} - {{ restaurant_info.hours.0.open.1.end }}</p>
+       Wed {{ restaurant_info.hours.0.open.2.start }} - {{ restaurant_info.hours.0.open.2.end }}</p>
+       Thu {{ restaurant_info.hours.0.open.3.start }} - {{ restaurant_info.hours.0.open.3.end }}</p>
+       Fri {{ restaurant_info.hours.0.open.4.start }} - {{ restaurant_info.hours.0.open.4.end }}</p>
+       Sat {{ restaurant_info.hours.0.open.5.start }} - {{ restaurant_info.hours.0.open.5.end }}</p>
+       Sun {{ restaurant_info.hours.0.open.6.start }} - {{ restaurant_info.hours.0.open.6.end }}</p>
+    <p>Address: {{ restaurant_info.location.display_address|join:", " }}</p>
+
   </div>
 </div>
+
 <a href="{% url 'add_reservations' restaurant.id profile_id%}">Make Reservation</a>
 <div>
   <form action="{% url 'add_review' restaurant.id %}" method="post">
@@ -26,6 +36,19 @@
     <input type="submit" value="Submit!" class="btn" />
   </form>
 </div>
+
+  <div>
+    <form action="{% url 'add_review' restaurant_info.id %}" method="post">
+      <!-- Django requires the following for security purposes -->
+      {% csrf_token %}
+      <table>
+        <!-- Render the inputs inside of <tr>s & <td>s -->
+          {{ reviews_form.as_p }}
+      </table>
+      <input type="submit" value="Submit!" class="btn" />
+    </form>
+  </div>
+
 
   {% if restaurant.reviews_set.count %} {% for review in restaurant.reviews_set.all %}
   <div class="card">

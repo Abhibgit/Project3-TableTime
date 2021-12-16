@@ -7,13 +7,11 @@
   <a href="{% url 'detail' restaurant.id %}">
     <div class="card-content">
       <span class="card-title">{{ restaurant.name }}</span>
-      <p>City: {{ restaurant.city }}</p>
-      <p>Cuisine: {{ restaurant.cuisine }}</p>
-      <p>Cost : {{ restaurant.cost }}</p>
-      {% if restaurant.cost > 2 %}
-      <p>Cost: Expensive</p>
-      {% else %}
-      <p>Cost: {{ restaurant.cost }}</p>
+      <img src="{{ restaurant.image_url }}" />
+      <p>Cuisine: {{ restaurant.categories.0.title}}</p>
+      <p>Cost : {{ restaurant.price }}</p>
+      <p>Rating : {{ restaurant.rating }}</p>
+      <p>Address : {{ restaurant.location.display_address|join:", "}}</p>
       <a href="{% url 'add_reservations' restaurant.id  profile_id %}"
         >Add Reservation</a
       >

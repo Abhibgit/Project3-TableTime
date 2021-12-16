@@ -10,9 +10,13 @@ from django import forms
 from .forms import ReviewForm
 from .models import Reviews
 from .forms import ReservationForm
-
-# Note that parens are optional if not inheriting from another class
+import requests
+import os
+from geocodio import GeocodioClient
  
+YELP_KEY = os.environ['YELP_KEY']
+client = GeocodioClient(os.environ['GEOCODIO_API'])
+
 # Create your views here.
 
 def home(request):
@@ -34,7 +38,7 @@ def account_settings(request):
 
 def saved_restaurants_index(request):
   savedrestaurants=[]
-  return render(request, 'savedrestaurants/index.html/', {'savedrestaurants':savedrestaurants})    
+  return render(request, 'savedrestaurants/index.html/', {'savedrestaurants': savedrestaurants})    
 
 def signup(request):
   error_message = ''
@@ -51,10 +55,11 @@ def signup(request):
   return render(request, 'registration/signup.html', context)
 
 def restaurant_detail(request, restaurant_id):
-  restaurant = Restaurant.objects.get(id=restaurant_id)
+  r=requests.get(f"https://api.yelp.com/v3/businesses/{restaurant_id}", headers={'Authorization':f'Bearer {YELP_KEY}'})
+  restaurant_info = r.json()
   user_profile = Profile.objects.get(user=request.user)
   reviews_form = ReviewForm()
-  return render(request, 'restaurantpage/restaurant_detail.html', {'restaurant':restaurant, 'reviews_form': reviews_form, 'profile_id': user_profile.id})
+  return render(request, 'restaurantpage/restaurant_detail.html', {'restaurant_info': restaurant_info, 'reviews_form': reviews_form, 'profile_id': user_profile.id})
 
 def add_review(request, restaurant_id):
     # create a ModelForm instance using the data in request.POST
@@ -64,7 +69,6 @@ def add_review(request, restaurant_id):
     new_review.restaurant_id = restaurant_id
     new_review.save()
   return redirect('detail', restaurant_id=restaurant_id)
-
 
 def add_reservations(request, restaurant_id, profile_id):
     # create a ModelForm instance using the data in request.POST
@@ -78,7 +82,6 @@ def add_reservations(request, restaurant_id, profile_id):
   else:
     return render(request, 'reservation.html', {'restaurant_id': restaurant_id, 'profile_id': profile_id, 'reservation_form' : form})
     
-  
 def update_reservations(request, reservation_id):
   reservation = Reservations.objects.get(id=reservation_id)
   if request.method == 'POST':
@@ -95,3 +98,13 @@ def delete_reservations(request, reservation_id):
   Reservations.objects.get(id=reservation_id).delete()
 
   return redirect('user_profile')
+
+def search_restaurant(request):
+  res = requests.get(f"https://api.geocod.io/v1.7/geocode?q={request.POST['location']}&country=CA&api_key={os.environ['GEOCODIO_API']}")
+  geo_location = res.json()
+  lat = geo_location['results'][0]['location']['lat']
+  lng = geo_location['results'][0]['location']['lng']
+  r=requests.get("https://api.yelp.com/v3/businesses/search", params = {'latitude': lat, 'longitude': lng, 'term': request.POST['term']}, headers={'Authorization':f'Bearer {YELP_KEY}'})
+  business_data = r.json()
+  return render(request, "restaurantpage/restaurant.html", {'business_data': business_data['businesses']})
+
