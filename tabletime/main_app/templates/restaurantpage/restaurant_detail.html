@@ -24,9 +24,9 @@
   </div>
 </div>
 
-<a href="{% url 'add_reservations' restaurant.id profile_id%}">Make Reservation</a>
+<a href="{% url 'add_reservations' restaurant_info.id profile_id%}">Make Reservation</a>
 <div>
-  <form action="{% url 'add_review' restaurant.id %}" method="post">
+  <form action="{% url 'add_review' restaurant_info.id %}" method="post">
     <!-- Django requires the following for security purposes -->
     {% csrf_token %}
     <table>

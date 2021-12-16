@@ -6,7 +6,7 @@ from .models import Reviews, Reservations
 
 urlpatterns = [
   path('', views.home, name='home'),
-  path('restaurant/', views.restaurant_index, name='restaurant'),
+  path('restaurant/search', views.search_restaurant, name='search_restaurant'),
   path('userprofile/', views.user_profile_index, name='user_profile'),
   path('account_settings/', views.account_settings, name='account_settings'),
   path('accounts/signup/', views.signup, name='signup'),

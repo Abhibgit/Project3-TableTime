@@ -74,11 +74,14 @@ def add_reservations(request, restaurant_id, profile_id):
     # create a ModelForm instance using the data in request.POST
   form = ReservationForm(request.POST)
   if form.is_valid():
+   
     new_reservations = form.save(commit=False)
     new_reservations.user_id = profile_id 
     new_reservations.restaurant_id = restaurant_id
     new_reservations.save()
-    return redirect('user_profile')
+    user_profile = Profile.objects.get(user=request.user)
+    reservations = Reservations.objects.filter(user_id= user_profile.id)
+    return redirect('user_profile', {'user_profile': user_profile, 'reservations': reservations})
   else:
     return render(request, 'reservation.html', {'restaurant_id': restaurant_id, 'profile_id': profile_id, 'reservation_form' : form})
     
