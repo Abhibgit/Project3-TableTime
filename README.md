@@ -29,3 +29,22 @@ Search for your Soulmeal today!!!
 ☐ Deployed app : http://127.0.0.1:8000/
 
 ☐ Trello board used for the project's planning that includes user stories, wireframes & an ERD:https://trello.com/b/meuumHOC/project-3
+
+☐ What was your biggest challenge? (besides Team Git Workflow):
+
+1. Learning to work alongside someone and avoid doing overlapping work proved to be our biggest challenge. However, with an increased level of detailed communication, we quickly overcame the barrier.
+
+
+
+☐ What are your key learnings/takeaways?:
+
+Always check your routes.
+
+Django is semi flexible its good with what it can do but is very strict with what it cant so plan out.
+
+Use Chrome(Abhishek)
+
+Do frequent commits after every feature otherwise god help you:
+
+ Being flexible in your planning and execution is always beneficial. There are moments when you’re in the thick of it and you realize that you might have to pivot        how you’re looking to produce a desired outcome. Setting yourself up for success through incremental changes/modifications to specific features before saving your progress will guarantee you don’t get too deep without a “turn back” point.
+
