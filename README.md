@@ -2,7 +2,9 @@ TableTime:
 
 Restaurant finder app
 
-Background info: Tabletime was created to help satisfy the hunger of actual foodies looking to spend their limited resources to get as much satisfaction as possible.
+Background info: Tabletime was created to help satisfy the hunger of actual foodies looking to spend their limited resources to get as much bang for their buck!
+
+
 
 Search for your Soulmeal today!!! 
 
