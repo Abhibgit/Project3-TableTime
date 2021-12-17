@@ -22,9 +22,10 @@ Search for your Soulmeal today!!!
 
 ☐ Technologies Used: Python, Django , POSTgreSQL, JAVASCRIPT, CSS, Materialize.
 
+
+
 ☐ Getting Started: 
 
-
-☐ Deployed app :
+☐ Deployed app : http://127.0.0.1:8000/
 
 ☐ Trello board used for the project's planning that includes user stories, wireframes & an ERD:https://trello.com/b/meuumHOC/project-3
