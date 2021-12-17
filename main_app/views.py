@@ -6,10 +6,10 @@ from .forms import ReviewForm
 from .forms import ReservationForm
 import requests
 import os
-from geocodio import GeocodioClient
+
  
 YELP_KEY = os.environ['YELP_KEY']
-client = GeocodioClient(os.environ['GEOCODIO_API'])
+
 
 # Create your views here.
 
