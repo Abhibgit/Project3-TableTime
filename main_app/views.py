@@ -105,6 +105,6 @@ def search_restaurant(request):
   lng = geo_location['results'][0]['location']['lng']
   r=requests.get("https://api.yelp.com/v3/businesses/search", params = {'latitude': lat, 'longitude': lng, 'term': request.POST['term']}, headers={'Authorization':f'Bearer {YELP_KEY}'})
   business_data = r.json()
-  user_profile = Profile.objects.get(user=request.user)
-  return render(request, "restaurantpage/restaurant.html", {'business_data': business_data['businesses'], 'profile_id': user_profile.id})
+
+  return render(request, "restaurantpage/restaurant.html", {'business_data': business_data['businesses']})
 
