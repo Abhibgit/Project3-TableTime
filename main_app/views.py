@@ -6,6 +6,7 @@ from .forms import ReviewForm
 from .forms import ReservationForm
 import requests
 import os
+from django.contrib.auth.decorators import login_required
  
 YELP_KEY = os.environ['YELP_KEY']
 
@@ -15,6 +16,7 @@ YELP_KEY = os.environ['YELP_KEY']
 def home(request):
   return render(request,'homepage.html')
 
+@login_required
 def user_profile_index(request):
   user_profile = Profile.objects.get(user=request.user)
   reservations = Reservations.objects.filter(user_id=user_profile.id)
@@ -23,6 +25,7 @@ def user_profile_index(request):
 def account_settings(request):
   return render(request,'accountsettings/account_settings.html')
 
+@login_required
 def saved_restaurants_index(request):
   savedrestaurants=[]
   return render(request, 'savedrestaurants/index.html/', {'savedrestaurants': savedrestaurants})    
@@ -51,6 +54,7 @@ def restaurant_detail(request, restaurant_name, restaurant_id):
   review_data = Reviews.objects.filter(restaurant=restaurant_id)
   return render(request, 'restaurantpage/restaurant_detail.html', {'restaurant_info': restaurant_info, 'reviews_form': reviews_form, 'profile_id': user_profile.id, 'review_data': review_data, 'restaurant_name': restaurant_name})
 
+@login_required
 def add_review(request, restaurant_id):
     # create a ModelForm instance using the data in request.POST
   form = ReviewForm(request.POST)
@@ -60,6 +64,7 @@ def add_review(request, restaurant_id):
     new_review.save()
   return redirect('detail', restaurant_id=restaurant_id)
 
+@login_required
 def add_reservations(request, restaurant_name, restaurant_id, profile_id):
     # create a ModelForm instance using the data in request.POST
   form = ReservationForm(request.POST)
@@ -73,7 +78,8 @@ def add_reservations(request, restaurant_name, restaurant_id, profile_id):
     return redirect('user_profile')
   else:
     return render(request, 'reservation.html', {'restaurant_id': restaurant_id, 'profile_id': profile_id, 'reservation_form' : form, 'restaurant_name': restaurant_name})
-    
+
+@login_required
 def update_reservations(request, reservation_id):
   reservation = Reservations.objects.get(id=reservation_id)
   if request.method == 'POST':
@@ -86,6 +92,7 @@ def update_reservations(request, reservation_id):
     form = ReservationForm(instance=reservation)
     return render(request, 'reservation/reservation_update.html', {'reservation_form': form, 'reservation_id': reservation_id})
 
+@login_required
 def delete_reservations(request, reservation_id):
   Reservations.objects.get(id=reservation_id).delete()
 
