@@ -28,7 +28,7 @@ Search for your Soulmeal today!!!
 
 ☐ Getting Started: 
 
-☐ Deployed app : http://127.0.0.1:8000/
+☐ Deployed app : https://table-time-app.herokuapp.com/
 
 ☐ Trello board used for the project's planning that includes user stories, wireframes & an ERD:https://trello.com/b/meuumHOC/project-3
 
@@ -44,7 +44,6 @@ Always check your routes.
 
 Django is semi flexible its good with what it can do but is very strict with what it cant so plan out.
 
-Use Chrome(Abhishek)
 
 Do frequent commits after every feature otherwise god help you:
 
