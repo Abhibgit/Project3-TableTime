@@ -6,7 +6,6 @@ from .forms import ReviewForm
 from .forms import ReservationForm
 import requests
 import os
-
  
 YELP_KEY = os.environ['YELP_KEY']
 

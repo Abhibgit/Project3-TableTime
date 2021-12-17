@@ -49,7 +49,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('date', models.DateField()),
-                ('time', models.TimeField()),
+                ('time', models.IntegerField()),
                 ('people', models.IntegerField()),
                 ('occasion', models.CharField(choices=[('A', 'Anniversary'), ('B', 'Birthday'), ('C', 'Celebration'), ('D', 'Date Night'), ('M', 'Business Meeting')], default='C', max_length=1)),
                 ('restaurant', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main_app.restaurant')),
