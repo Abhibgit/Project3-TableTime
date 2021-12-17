@@ -1,22 +1,27 @@
 {% extends 'base.html' %} {% block content %}
+</br>
+</br>
+</br>
 
-<h1>Tabletime</h1>
-<hr />
-
-<form method="POST" action="{% url 'search_restaurant' %}">
-  {% csrf_token %}
-  <input
-    type="text"
-    placeholder="Search a restaurant or category"
-    id="id_location"
-    name="term"
-  />
-  <input
-    type="text"
-    placeholder="Enter a location"
-    id="id_location"
-    name="location"
-  />
-  <button type="submit" id="search_btn">Search</button>
-</form>
+<div class="card-panel  grey lighten-3">
+  <div class="center-align">
+    <h3>Let's find a restaurant</h3>
+    <form method="POST" action="{% url 'search_restaurant' %}">
+      {% csrf_token %}
+      <input
+        type="text"
+        class="text-darken-2" placeholder="Search a restaurant or category" 
+        id="id_location"
+        name="term"
+      />
+      <input
+        type="text"
+        placeholder="Enter a location"
+        id="id_location"
+        name="location"
+      />
+      <button type="submit" id="search_btn" class="btn">Search</button>
+    </form>
+  </div>
+</div>
 {% endblock %}

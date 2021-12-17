@@ -3,28 +3,31 @@
 <h1>Restaurant Details</h1>
 
 <div class="card">
-  <div class="card-content">
+  <div class="card-image">
     <img src="{{ restaurant_info.image_url }}">
     <span class="card-title">{{ restaurant_info.name }}</span>
+  </div>
 
-    <p>Cuisine: {{ restaurant_info.categories.0.title}}</p>
-    <p>Price: {{ restaurant_info.price }}</p>
-    <p>Rating: {{ restaurant_info.rating }}</p>
-    <p>Phone: {{ restaurant_info.display_phone }}</p>
-    <p>Hours: 
-       Mon {{ restaurant_info.hours.0.open.0.start }} - {{ restaurant_info.hours.0.open.0.end }}</p>
-       Tue {{ restaurant_info.hours.0.open.1.start }} - {{ restaurant_info.hours.0.open.1.end }}</p>
-       Wed {{ restaurant_info.hours.0.open.2.start }} - {{ restaurant_info.hours.0.open.2.end }}</p>
-       Thu {{ restaurant_info.hours.0.open.3.start }} - {{ restaurant_info.hours.0.open.3.end }}</p>
-       Fri {{ restaurant_info.hours.0.open.4.start }} - {{ restaurant_info.hours.0.open.4.end }}</p>
-       Sat {{ restaurant_info.hours.0.open.5.start }} - {{ restaurant_info.hours.0.open.5.end }}</p>
-       Sun {{ restaurant_info.hours.0.open.6.start }} - {{ restaurant_info.hours.0.open.6.end }}</p>
-    <p>Address: {{ restaurant_info.location.display_address|join:", " }}</p>
+    <div class="card-content">
+    <p><strong>Cuisine:</strong> {{ restaurant_info.categories.0.title}}</p>
+    <p><strong>Price:</strong> {{ restaurant_info.price }}</p>
+    <p><strong>Rating:</strong> {{ restaurant_info.rating }}</p>
+    <p><strong>Phone:</strong> {{ restaurant_info.display_phone }}</p>
+    <p><strong>Address:</strong> {{ restaurant_info.location.display_address|join:", " }}</p>
+    <p class="hours"><strong>Hours:</strong></p> 
+       <strong>Mon</strong> {{ restaurant_info.hours.0.open.0.start }} - {{ restaurant_info.hours.0.open.0.end }}</p>
+       <strong>Tue</strong> {{ restaurant_info.hours.0.open.1.start }} - {{ restaurant_info.hours.0.open.1.end }}</p>
+       <strong>Wed</strong> {{ restaurant_info.hours.0.open.2.start }} - {{ restaurant_info.hours.0.open.2.end }}</p>
+       <strong>Thu</strong> {{ restaurant_info.hours.0.open.3.start }} - {{ restaurant_info.hours.0.open.3.end }}</p>
+       <strong>Fri</strong> {{ restaurant_info.hours.0.open.4.start }} - {{ restaurant_info.hours.0.open.4.end }}</p>
+       <strong>Sat</strong> {{ restaurant_info.hours.0.open.5.start }} - {{ restaurant_info.hours.0.open.5.end }}</p>
+       <strong>Sun</strong> {{ restaurant_info.hours.0.open.6.start }} - {{ restaurant_info.hours.0.open.6.end }}</p>
+    </br>
+       <button action="{% url 'add_reservations' restaurant_name restaurant_info.id profile_id%}" class="btn">Make Reservation</button>
 
   </div>
 </div>
 
-<a href="{% url 'add_reservations' restaurant_name restaurant_info.id profile_id%}">Make Reservation</a>
 <div>
   <form action="{% url 'add_review' restaurant_info.id %}" method="post">
     <!-- Django requires the following for security purposes -->
@@ -42,7 +45,7 @@
     <div class="card-content">
       <span class="card-title">
         <p>Comment: {{ review.comment }}</p>
-        <p>Star Rating: {{ review.star_rating }}</p>
+        <p>Rating: {{ review.star_rating }}</p>
     </div>
   </div>
   {% endfor %}
