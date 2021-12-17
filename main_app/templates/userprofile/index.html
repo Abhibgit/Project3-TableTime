@@ -2,14 +2,25 @@
 
 <h1>Account</h1>
 <hr />
-<p>Personal Information</p>
+<div class="row">
+<div class="col s12">
+<div class="col s6">
+<p class="personal">Personal Information</p>
 <p>First name: {{ user.first_name }}</p>
+<p>Phone: {{ user_profile.phone }}</p>
+</div>
+<div class="col s6">
+<p>Location: {{ user_profile.address }}</p>
 <p>Last name: {{ user.last_name }}</p>
 <p>E-mail: {{ user.email }}</p>
-<p>Phone: {{ user_profile.phone }}</p>
-<p>Location: {{ user_profile.address }}</p>
+</div>
+</div>
+</div>
+<hr>
+</br>
 
-<h5>Your Reservations<h5>
+<div class="col s12">
+<h5 class="reservations-header-profile">Your Reservations<h5>
 {{ user.reservation_set.count }}
 {% if reservations.count %} {% for reservation in reservations %}
 <div class="card">
@@ -20,13 +31,18 @@
       <p>Time: {{ reservation.time }}</p>
       <p>People: {{ reservation.people }}</p>
       <p>Occasion: {{ reservation.occasion }}</p>
-      <li><a href="{% url 'delete_reservations' reservation.id %}">Delete Reservation</a></li>
-      <li><a href="{% url 'update_reservations' reservation.id %}">Update Reservation</a></li>
+    </br>
+      <a class="btn"href="{% url 'delete_reservations' reservation.id %}">Delete Reservation</a>
+    </br>
+    </br>
+      <a class="btn"href="{% url 'update_reservations' reservation.id %}">Update Reservation</a>
   </div>
 </div>
 {% endfor %} {% else %}
 <h5>No Reservations</h5>
 {% endif %}
-
+</div>
+</div>
+</div>
 <li><a href="{% url 'logout' %}">Log Out</a></li>
 {% endblock %}

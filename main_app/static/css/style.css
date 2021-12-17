@@ -1,5 +1,6 @@
 * {
   font-family: "Open Sans", sans-serif;
+  background: rgb(119, 183, 255);
 }
 
 body {
@@ -15,8 +16,4 @@ main {
 footer.page-footer {
   padding-top: 0;
   text-align: right;
-}
-
-.hours {
-  text-decoration: underline;
 }

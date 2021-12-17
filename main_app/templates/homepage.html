@@ -3,14 +3,14 @@
 </br>
 </br>
 
-<div class="card-panel  grey lighten-3">
+<div class="card-panel  grey lighten-5">
   <div class="center-align">
     <h3>Let's find a restaurant</h3>
     <form method="POST" action="{% url 'search_restaurant' %}">
       {% csrf_token %}
       <input
         type="text"
-        class="text-darken-2" placeholder="Search a restaurant or category" 
+         placeholder="Search a restaurant or category" 
         id="id_location"
         name="term"
       />
@@ -20,7 +20,7 @@
         id="id_location"
         name="location"
       />
-      <button type="submit" id="search_btn" class="btn">Search</button>
+      <button type="submit" id="search_btn" class="btn">Search <i class="large material-icons">search</i></button>
     </form>
   </div>
 </div>

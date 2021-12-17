@@ -8,15 +8,14 @@
 <div class="card large">
       <div class="card-image">
         <img src="{{ restaurant.image_url }}" />
-        <a href="{% url 'detail' restaurant.name restaurant.id %}">
-          <span class="card-title">{{ restaurant.name }}</span></a
-          >
-        </div>
-        <div class="card-content">
-        <p>Cuisine: {{ restaurant.categories.0.title}}</p>
-        <p>Cost : {{ restaurant.price }}</p>
-        <p>Rating : {{ restaurant.rating }}</p>
-        <p>Address : {{ restaurant.location.display_address|join:", "}}</p>
+      </div>
+      <div class="card-content">
+        <p>{{ restaurant.name }}<p>
+          <p>Cuisine: {{ restaurant.categories.0.title}}</p>
+          <p>Cost : {{ restaurant.price }}</p>
+          <p>Rating : {{ restaurant.rating }}</p>
+          <p>Address : {{ restaurant.location.display_address|join:", "}}</p>
+          <a class="btn-small" href="{% url 'detail' restaurant.name restaurant.id %}">Details</a>
       </div>
     </div>
   </div>

@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% block content %}
 
-<h1>Restaurant Details</h1>
-
+<h3>Restaurant Details</h3>
+</br>
 <div class="card">
   <div class="card-image">
     <img src="{{ restaurant_info.image_url }}">
@@ -23,7 +23,7 @@
        <strong>Sat</strong> {{ restaurant_info.hours.0.open.5.start }} - {{ restaurant_info.hours.0.open.5.end }}</p>
        <strong>Sun</strong> {{ restaurant_info.hours.0.open.6.start }} - {{ restaurant_info.hours.0.open.6.end }}</p>
     </br>
-       <button action="{% url 'add_reservations' restaurant_name restaurant_info.id profile_id%}" class="btn">Make Reservation</button>
+       <a href="{% url 'add_reservations' restaurant_name restaurant_info.id profile_id%}" class="btn">Make Reservation</a>
 
   </div>
 </div>
